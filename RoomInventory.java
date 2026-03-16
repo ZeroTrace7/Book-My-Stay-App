@@ -49,4 +49,14 @@ public class RoomInventory {
     public Map<String, Integer> getSnapshot() {
         return Collections.unmodifiableMap(new HashMap<>(availability));
     }
+
+    public void loadFromSnapshot(Map<String, Integer> snapshot) {
+        availability.clear();
+        if (snapshot == null) {
+            return;
+        }
+        for (Map.Entry<String, Integer> entry : snapshot.entrySet()) {
+            setAvailability(entry.getKey(), entry.getValue());
+        }
+    }
 }

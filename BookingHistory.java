@@ -25,4 +25,12 @@ public class BookingHistory {
     public int size() {
         return confirmed.size();
     }
+
+    public void loadFrom(List<Reservation> reservations) {
+        confirmed.clear();
+        if (reservations == null) {
+            return;
+        }
+        confirmed.addAll(reservations);
+    }
 }
