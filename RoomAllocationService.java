@@ -35,6 +35,13 @@ public class RoomAllocationService {
         if (reservation == null) {
             return AllocationResult.rejected("No pending requests.");
         }
+        return allocateReservation(reservation);
+    }
+
+    public synchronized AllocationResult allocateReservation(Reservation reservation) {
+        if (reservation == null) {
+            return AllocationResult.rejected("Reservation is required.");
+        }
 
         String roomType = reservation.getRoomType();
         int available = inventory.getAvailability(roomType);

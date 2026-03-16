@@ -21,6 +21,14 @@ public class BookingRequestQueue {
         return queue.pollFirst();
     }
 
+    public synchronized Reservation dequeueSynchronized() {
+        return queue.pollFirst();
+    }
+
+    public synchronized void enqueueSynchronized(Reservation reservation) {
+        enqueue(reservation);
+    }
+
     public int size() {
         return queue.size();
     }
