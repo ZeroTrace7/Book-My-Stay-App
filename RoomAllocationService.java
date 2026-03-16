@@ -50,7 +50,7 @@ public class RoomAllocationService {
 
         String message = "Confirmed " + reservation.getRequestId()
                 + " -> " + roomId + " (" + roomType + ")";
-        return AllocationResult.confirmed(roomId, message);
+        return AllocationResult.confirmed(roomId, message, reservation);
     }
 
     public Map<String, Set<String>> getAllocatedSnapshot() {
