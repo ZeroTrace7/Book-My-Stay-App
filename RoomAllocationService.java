@@ -53,6 +53,29 @@ public class RoomAllocationService {
         return AllocationResult.confirmed(roomId, message, reservation);
     }
 
+    public boolean releaseRoom(String roomId, String roomType) {
+        if (roomId == null || roomId.isBlank()) {
+            return false;
+        }
+        if (roomType == null || roomType.isBlank()) {
+            return false;
+        }
+        if (!allocatedRoomIds.contains(roomId)) {
+            return false;
+        }
+        Set<String> allocatedForType = allocatedByType.get(roomType);
+        if (allocatedForType == null || !allocatedForType.contains(roomId)) {
+            return false;
+        }
+        allocatedRoomIds.remove(roomId);
+        allocatedForType.remove(roomId);
+        if (allocatedForType.isEmpty()) {
+            allocatedByType.remove(roomType);
+        }
+        inventory.updateAvailability(roomType, 1);
+        return true;
+    }
+
     public Map<String, Set<String>> getAllocatedSnapshot() {
         Map<String, Set<String>> snapshot = new HashMap<>();
         for (Map.Entry<String, Set<String>> entry : allocatedByType.entrySet()) {
